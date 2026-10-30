@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    LinearLayout:
+    Organiza los elementos en una sola dirección.
+
+    orientation="vertical":
+    Los elementos aparecen uno debajo de otro.
+
+    gravity="center":
+    Centra los elementos dentro del contenedor.
+
+    padding="24dp":
+    Añade un margen interior de 24dp.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+
+    android:background="#F2F2F2"
+    tools:context=".MainActivity">
+
+    <!-- ==================================
+         TÍTULO DE LA APLICACIÓN
+         ================================== -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="BRÚJULA DIGITAL"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#263238"
+
+        android:layout_marginBottom="24dp" />
+
+    <!-- ==================================
+         IMAGEN DE LA BRÚJULA
+         ================================== -->
+
+    <!--
+        ImageView:
+        Muestra una imagen dentro de la interfaz.
+
+        id:
+        Permite acceder desde Kotlin mediante
+        findViewById().
+
+        width="100dp":
+        Anchura de la imagen.
+
+        height="200dp":
+        Altura de la imagen. Es el doble
+        de la anchura para acomodar ambas mitades.
+
+        src:
+        Referencia al recurso gráfico que
+        hemos creado en res/drawable.
+
+        En Kotlin podremos girarla con:
+        imgBrujula.rotation = -grados
+    -->
+    <ImageView
+        android:id="@+id/imgBrujula"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+
+        android:src="@drawable/aguja_brujula"
+        android:contentDescription="Aguja de brújula"
+
+        android:layout_marginBottom="24dp" />
+
+    <!-- ==================================
+         TEXTO INFORMATIVO
+         ================================== -->
+
+    <!--
+        Este TextView mostrará información
+        sobre la orientación del dispositivo.
+    -->
+    <TextView
+        android:id="@+id/txtDireccion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Norte"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1565C0" />
+
+</LinearLayout>
