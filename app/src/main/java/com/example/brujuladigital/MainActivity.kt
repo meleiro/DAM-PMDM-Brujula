@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import kotlin.math.roundToInt
+import android.util.Log
 
 /** Ejemplo didáctico de brújula: teléfono horizontal, pantalla hacia arriba. */
 class MainActivity : Activity(), SensorEventListener {
@@ -67,15 +68,58 @@ class MainActivity : Activity(), SensorEventListener {
         when (event.sensor.type) {
             Sensor.TYPE_ACCELEROMETER -> {
 
+                System.arraycopy(event.values,0, gravedad, 0, 3 )
+
                 tieneGravedad = true
             }
             Sensor.TYPE_MAGNETIC_FIELD -> {
 
+                System.arraycopy(event.values, 0, campoMagnetico, 0 , 3)
+
                 tieneMagnetismo = true
             }
         }
+        Log.d("BRÚJULA,", "aCELERÓMETRO: X=${gravedad[0]} Y=${gravedad[1]} Z=${gravedad[2]}")
+        Log.d("BRÚJULA,", "Magenetómetro: X=${campoMagnetico[0]} Y=${campoMagnetico[1]} Z=${campoMagnetico[2]}")
         if (tieneGravedad && tieneMagnetismo) calcularOrientacion()
     }
+
+    private fun calcularOrientacion(){
+        val matrizRotacion = FloatArray(9)
+
+        val orientacion = FloatArray(3)
+
+        val resultado = SensorManager.getRotationMatrix(matrizRotacion, null, gravedad, campoMagnetico )
+
+        if (!resultado) {
+            return;
+        }
+
+        SensorManager.getOrientation(matrizRotacion, orientacion)
+
+        val azimutGrados = Math.toDegrees(orientacion[0].toDouble()).toFloat()
+
+        val grados = (azimutGrados + 360f) % 360f
+
+        txtGrados.text = "${grados.roundToInt() % 360} º"
+
+        txtDireccion.text = obtenerPuntoCardinal(grados)
+
+    }
+
+    private fun obtenerPuntoCardinal (grados: Float): String {
+        return when {
+            grados < 90f -> "Norte y el Noreste"
+            grados < 180f -> "este y Sureste"
+            grados < 270f -> "Sur y el suroeste"
+            else -> "Oeste y Noroeste"
+        }
+    }
+    override fun onAccuracyChanged(sensor: Sensor?, accoracy: Int) {
+
+    }
+
+
 
 
 
