@@ -105,6 +105,8 @@ class MainActivity : Activity(), SensorEventListener {
 
         txtDireccion.text = obtenerPuntoCardinal(grados)
 
+        imgBrujula.rotation = -grados
+
     }
 
     private fun obtenerPuntoCardinal (grados: Float): String {
@@ -115,8 +117,24 @@ class MainActivity : Activity(), SensorEventListener {
             else -> "Oeste y Noroeste"
         }
     }
-    override fun onAccuracyChanged(sensor: Sensor?, accoracy: Int) {
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 
+        if(sensor?.type != Sensor.TYPE_MAGNETIC_FIELD) {
+            return;
+        }
+
+        txtSensor.text = when (accuracy) {
+            SensorManager.SENSOR_STATUS_UNRELIABLE ->
+                "Precisión no fiable"
+            SensorManager.SENSOR_STATUS_ACCURACY_LOW->
+                "Precisión BAJA"
+            SensorManager.SENSOR_STATUS_ACCURACY_MEDIUM->
+                "Precisión MEDIA"
+            SensorManager.SENSOR_STATUS_ACCURACY_HIGH->
+                "Precisión ALTA"
+            else ->
+                "precisión desconocida"
+        }
     }
 
 
