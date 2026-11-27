@@ -15,10 +15,17 @@
         android:layout_marginTop="24dp"/>
 
     <TextView
-        android:id="@+id/txtTituloMapa"
+        android:id="@+id/txtUbicacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="22sp"
-        android:text="Esperando ubicación"
+        android:text="Esperando ubicación..."
+        android:layout_gravity="center"
         android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/btnActualizarUbicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actualizar Ubicacion" />
 </LinearLayout>
